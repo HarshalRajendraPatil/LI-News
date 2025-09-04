@@ -19,7 +19,7 @@ app.use(express.json());
 /**
  * Proxy endpoint for LinkedIn user info
  */
-app.post('/api/linkedin/userinfo', async (req, res) => {
+app.post('/linkedin/userinfo', async (req, res) => {
   try {
     const { accessToken } = req.body;
     
@@ -48,7 +48,7 @@ app.post('/api/linkedin/userinfo', async (req, res) => {
 /**
  * Proxy endpoint for LinkedIn post creation
  */
-app.post('/api/linkedin/post', async (req, res) => {
+app.post('/linkedin/post', async (req, res) => {
   try {
     const { accessToken, postData } = req.body;
     
