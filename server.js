@@ -1,13 +1,17 @@
 import express from 'express';
 import cors from 'cors';
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+console.log(process.env.VITE_FRONTEND_URL);
+
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:5173', // Allow frontend
+  origin: process.env.VITE_FRONTEND_URL, // Allow frontend
   credentials: true
 }));
 app.use(express.json());
@@ -25,7 +29,7 @@ app.post('/api/linkedin/userinfo', async (req, res) => {
       });
     }
 
-    const response = await axios.get('https://api.linkedin.com/v2/userinfo', {
+    const response = await axios.get(process.env.LINKEDIN_USER_URL, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json'
@@ -60,7 +64,7 @@ app.post('/api/linkedin/post', async (req, res) => {
       });
     }
 
-    const response = await axios.post('https://api.linkedin.com/v2/ugcPosts', postData, {
+    const response = await axios.post(process.env.LINKEDIN_POST_URL, postData, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
@@ -91,8 +95,8 @@ app.get('/api/health', (req, res) => {
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 LinkedIn proxy server running on port ${PORT}`);
-  console.log(`📱 Frontend should connect to: http://localhost:${PORT}`);
-  console.log(`🔗 Health check: http://localhost:${PORT}/api/health`);
+  console.log(`📱 Frontend should connect to: ${process.env.VITE_FRONTEND_URL}`);
+  console.log(`🔗 Health check: ${process.env.VITE_BACKEND_URL}/health`);
 });
 
 export default app;

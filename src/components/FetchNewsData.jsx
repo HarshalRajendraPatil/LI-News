@@ -119,7 +119,7 @@ Make sure the content is current, accurate, and provides real value to LinkedIn'
     const handlePostOnLinkedIn = async () => {
         try {
             // First, get user info to extract the user ID via proxy
-            const userResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/userinfo`, {
+            const userResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/linkedin/userinfo`, {
                 accessToken: import.meta.env.VITE_ACCESS_TOKEN
             });
             
@@ -143,7 +143,7 @@ Make sure the content is current, accurate, and provides real value to LinkedIn'
             };
 
             // Post to LinkedIn via proxy
-            const postResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/post`, {
+            const postResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/linkedin/post`, {
                 accessToken: import.meta.env.VITE_ACCESS_TOKEN,
                 postData: postData
             });
